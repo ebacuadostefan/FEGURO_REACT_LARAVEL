@@ -1,4 +1,4 @@
-import { Users } from '../users/Users';
+import { Users } from './User';
 
 export interface PaginatedUsers {
     data: Users[];

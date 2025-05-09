@@ -1,8 +1,8 @@
 import UsersTable from "../../components/tables/user/UsersTable";
-import type { Users } from "../../interfaces/users/Users";
-import MainLayout from "../../components//layout/MainLayout";
+import type { User } from "../../interfaces/users/User";
+import MainLayout from "../../layouts/MainLayout";
 
-const Users = () => {
+const User = () => {
   const content = (
     <>
       <UsersTable/>
@@ -12,4 +12,4 @@ const Users = () => {
   return <MainLayout content={content} />;
 };
 
-export default Users;
+export default User;

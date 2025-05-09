@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import ErrorHandler from "../../../handler/ErrorHandler";
-import { Users } from "../../../interfaces/users/Users";
+import { Users } from "../../../interfaces/users/User";
 import { PaginatedUsers } from "../../../interfaces/users/PaginatedUsers";
-import UserService from "../../../services/UserService";
+import UserService from "../../../services/userService";
 import Spinner from "../../Spinner";
 
 const UsersTable = () => {
