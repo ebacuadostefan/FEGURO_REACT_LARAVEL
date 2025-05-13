@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create 10 Dummy Users
         User::factory(10)->create();
     }
 }
