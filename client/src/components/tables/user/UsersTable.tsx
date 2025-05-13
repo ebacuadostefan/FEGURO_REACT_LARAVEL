@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import ErrorHandler from "../../../handler/ErrorHandler";
-import { Users } from "../../../interfaces/users/User";
+import { User } from "../../../interfaces/users/User";
 import { PaginatedUsers } from "../../../interfaces/users/PaginatedUsers";
 import UserService from "../../../services/userService";
 import Spinner from "../../Spinner";
+import { toast } from 'react-toastify';
 
 const UsersTable = () => {
   const [state, setState] = useState<{
     loadingUsers: boolean;
-    users: Users[];
+    users: User[];
     currentPage: number;
     lastPage: number;
   }>({
@@ -18,9 +19,9 @@ const UsersTable = () => {
     lastPage: 1,
   });
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const handleLoadUsers = (page = 1, search = '') => {
+  const handleLoadUsers = (page = 1, search = "") => {
     setState((prev) => ({ ...prev, loadingUsers: true }));
 
     UserService.loadUsers(page, search)
@@ -64,6 +65,14 @@ const UsersTable = () => {
     }
   };
 
+  const handleEdit = (user: User) => {
+   
+  };
+
+  const handleDelete = (user: User) => {
+    
+  };
+
   const renderPagination = () => {
     const pages = [];
 
@@ -71,7 +80,8 @@ const UsersTable = () => {
       pages.push(
         <li
           key={i}
-          className={`page-item ${i === state.currentPage ? "active" : ""}`}>
+          className={`page-item ${i === state.currentPage ? "active" : ""}`}
+        >
           <button className="page-link" onClick={() => handlePageChange(i)}>
             {i}
           </button>
@@ -89,7 +99,8 @@ const UsersTable = () => {
   return (
     <section className="w-100 h-100">
       <h2>Users Management</h2>
-      {/* Table Header */}
+
+      {/* Header */}
       <div className="row mb-3">
         <div className="col-12 col-md-6 mb-2 z-index-0">
           <div className="input-group">
@@ -103,7 +114,8 @@ const UsersTable = () => {
               className="form-control"
               placeholder="Search users..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}/>
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
         </div>
 
@@ -115,6 +127,7 @@ const UsersTable = () => {
         </div>
       </div>
 
+      {/* Table */}
       <div className="table-responsive">
         <table className="table shadow-md table-striped">
           <thead>
@@ -122,7 +135,9 @@ const UsersTable = () => {
               <th>#</th>
               <th>Full Name</th>
               <th>Email</th>
-              <th><i className="bi bi-gear fs-4"></i></th>
+              <th>
+                <i className="bi bi-gear fs-4"></i>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -139,16 +154,22 @@ const UsersTable = () => {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
-                      <div className="d-flex align-items-center gap-2">
-                        <a className="btn btn-primary d-flex align-items-center gap-2">
-                          <i className="bi bi-pencil-square fs-4"></i>
-                          EDIT
-                        </a>
-                        <a className="btn btn-danger d-flex align-items-center gap-2">
-                          <i className="bi bi-trash fs-4"></i>
-                          DELETE
-                        </a>
-                      </div>
+                    <div className="d-flex align-items-center gap-2">
+                      <button
+                        className="btn btn-primary d-flex align-items-center gap-2"
+                        onClick={() => handleEdit(user)}
+                      >
+                        <i className="bi bi-pencil-square fs-4"></i>
+                        EDIT
+                      </button>
+                      <button
+                        className="btn btn-danger d-flex align-items-center gap-2"
+                        onClick={() => handleDelete(user)}
+                      >
+                        <i className="bi bi-trash fs-4"></i>
+                        DELETE
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))
@@ -161,6 +182,7 @@ const UsersTable = () => {
             )}
           </tbody>
         </table>
+
         {!state.loadingUsers && renderPagination()}
       </div>
     </section>
