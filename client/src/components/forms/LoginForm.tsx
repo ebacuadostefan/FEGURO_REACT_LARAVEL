@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import ErrorHandler from "../../handler/ErrorHandler";
@@ -7,7 +7,7 @@ import LoadingSpinner from "../Spinner";
 import ToastNotification from "../ToastNotification";
 
 const LoginForm = () => {
-  const { login } = useAuth();
+  const { login, justLoggedOut, setJustLoggedOut } = useAuth();
   const navigate = useNavigate();
 
   const [state, setState] = useState({
@@ -20,6 +20,15 @@ const LoginForm = () => {
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (justLoggedOut) {
+      setMessage("Logout successful");
+      setIsSuccess(true);
+      setIsVisible(true);
+      setJustLoggedOut(false);
+    }
+  }, [justLoggedOut, setJustLoggedOut]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -41,7 +50,6 @@ const LoginForm = () => {
     login(state.email, state.password)
       .then(() => {
         handleShowAlertMessage("Login successful!", true, true);
-        // Optional: delay navigation to allow the toast to show
         setTimeout(() => {
           navigate("/dashboard");
         }, 1000);
@@ -85,38 +93,50 @@ const LoginForm = () => {
 
   return (
     <div className="d-flex justify-content-center align-items-center h-100">
-      <div className="p-4 shadow rounded bg-white" style={{ width: "100%", maxWidth: "400px" }}>
-        <header>
-          <h2>Login</h2>
+      <div
+        className="p-4 shadow rounded bg-white"
+        style={{ width: "100%", maxWidth: "400px" }}>
+        <header className="text-center">
+          <h2>SIGN IN</h2>
         </header>
         <form onSubmit={handleLogin}>
           <div className="mb-3">
             <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              className={`form-control ${state.errors.email ? "is-invalid" : ""}`}
-              name="email"
-              id="email"
-              value={state.email}
-              onChange={handleInputChange}
-              autoFocus
-            />
+            <div className="input-group">
+              <span className="input-group-text" id="email-addon">
+                <i className="bi bi-envelope"></i>
+              </span>
+              <input
+                type="text"
+                className={`form-control ${state.errors.email ? "is-invalid" : ""}`}
+                name="email"
+                id="email"
+                aria-describedby="email-addon"
+                value={state.email}
+                onChange={handleInputChange}
+                autoFocus
+              />
+            </div>
             {state.errors.email && (
               <span className="text-danger">{state.errors.email[0]}</span>
             )}
           </div>
           <div className="mb-3">
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className={`form-control ${
-                state.errors.password ? "is-invalid" : ""
-              }`}
-              name="password"
-              id="password"
-              value={state.password}
-              onChange={handleInputChange}
-            />
+            <div className="input-group">
+              <span className="input-group-text" id="password-addon">
+                <i className="bi bi-lock"></i>
+              </span>
+              <input
+                type="password"
+                className={`form-control ${state.errors.password ? "is-invalid" : ""}`}
+                name="password"
+                id="password"
+                aria-describedby="password-addon"
+                value={state.password}
+                onChange={handleInputChange}
+              />
+            </div>
             {state.errors.password && (
               <span className="text-danger">{state.errors.password[0]}</span>
             )}

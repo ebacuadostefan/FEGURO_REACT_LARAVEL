@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import Logo from "../assets/react.svg";
+import Logo from "../../public/App-Logo.svg";
 
 interface MenuItem {
   route: string;
@@ -17,8 +17,8 @@ const Sidebar = () => {
     <div
       className="position-fixed top-0 left-0 bg-dark text-white p-4 z-50 sidebar">
       <div className="d-flex flex-row align-items-center gap-2">
-        <img className="d-md-block" src={Logo} alt="Logo" />
-        <h3 className="App-Name">React N Laravel</h3>
+        <img src={Logo} alt="Logo" style={{ width: '48px', height: '48px', clipPath: 'circle()' }} />
+        <h3 className="mb-0">React N Laravel</h3>
       </div>
       <ul className="list-unstyled d-flex flex-column gap-4 mt-4">
         {menuItems.map((item, index) => (

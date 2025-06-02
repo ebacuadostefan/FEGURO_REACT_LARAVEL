@@ -43,10 +43,10 @@ const pieData = {
 
 const Dashboard = () => {
   const content = (
-    <div className="container py-4">
+    <div className="container">
       {/* Page Header */}
       <div className="mb-4">
-        <h1 className="h3">Dashboard</h1>
+        <h2>Dashboard</h2>
         <p className="text-muted">Overview of your system</p>
       </div>
 

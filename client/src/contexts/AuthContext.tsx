@@ -7,6 +7,8 @@ interface AuthContextProps {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   isLoggedIn: boolean;
+  justLoggedOut: boolean;                      
+  setJustLoggedOut: (value: boolean) => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -16,6 +18,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
   );
+  const [justLoggedOut, setJustLoggedOut] = useState(false);
 
   const login = async (email: string, password: string) => {
     const response = await axios.post("http://127.0.0.1:8000/api/login", {
@@ -34,7 +37,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
-    await axios.post("http://127.0.0.1:8000/api/logout");
+    if (!token) return;
+
+    await axios.post("http://127.0.0.1:8000/api/logout", {}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    
+    setJustLoggedOut(true);
     setToken(null);
     setUser(null);
 
@@ -47,7 +58,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const isLoggedIn = !!token;
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, isLoggedIn }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        login,
+        logout,
+        isLoggedIn,
+        justLoggedOut,
+        setJustLoggedOut,
+      }}>
       {children}
     </AuthContext.Provider>
   );

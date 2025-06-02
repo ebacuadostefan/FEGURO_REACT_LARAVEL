@@ -1,8 +1,6 @@
 import { ReactNode } from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 interface MainLayoutProps {
   content: ReactNode;
@@ -22,7 +20,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ content }) => {
         {/* Content Area */}
         <div className="container h-100 overflow-auto p-4 mt-1">{content}</div>
       </div>
-    <ToastContainer  style={{ marginTop: '60px', zIndex: 9999 }}/>
     </section>
   );
 };
