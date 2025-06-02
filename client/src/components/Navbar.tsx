@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import LogoutForm from "./forms/LogoutForm";
+import DefaultAvatar from "../assets/default-profile.png";
 
 const Navbar: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -18,16 +19,30 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
+  const getUserFromStorage = () => {
+    const user = localStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
+  };
+
+  const handleUserFullname = () => {
+    const parsedUser = getUserFromStorage();
+    return parsedUser?.name ?? "";
+  };
+
+  const handleUserAvatar = () => {
+    const parsedUser = getUserFromStorage();
+    return parsedUser?.avatar ?? DefaultAvatar;
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-info shadow-lg w-100 px-4 py-2 d-flex justify-content-end align-items-center position-sticky top-0">
       <div className="position-relative" ref={dropdownRef}>
         <span
           onClick={() => setDropdownOpen((prev) => !prev)}
           className="d-flex align-items-center gap-2 text-white"
-          style={{ cursor: "pointer" }}
-        >
-          <i className="bi bi-person-circle fs-4"></i>
-          Profile
+          style={{ cursor: "pointer" }}>
+          <img src={handleUserAvatar()} alt="Avatar" style={{width: "32px", height: "32px"}}/>
+          {handleUserFullname()}
         </span>
 
         {dropdownOpen && (

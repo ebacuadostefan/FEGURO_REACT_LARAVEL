@@ -12,6 +12,8 @@ class UserController extends Controller
     {
         $query = User::query();
 
+        $query->where('id', '!=', auth()->id());
+
         if ($search = $request->get('search')) {
             $query->where(function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")

@@ -13,6 +13,8 @@ interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
+const BASE_API_URL = import.meta.env.VITE_API_URL;
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState<string | null>(
@@ -21,7 +23,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [justLoggedOut, setJustLoggedOut] = useState(false);
 
   const login = async (email: string, password: string) => {
-    const response = await axios.post("http://127.0.0.1:8000/api/login", {
+    const response = await axios.post(`${BASE_API_URL}/login`, {
       email,
       password,
     });
@@ -39,7 +41,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = async () => {
     if (!token) return;
 
-    await axios.post("http://127.0.0.1:8000/api/logout", {}, {
+    await axios.post(`${BASE_API_URL}/logout`, {}, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

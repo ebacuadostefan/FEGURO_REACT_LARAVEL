@@ -1,7 +1,7 @@
-import { Users } from './User';
+import { User } from './User';
 
 export interface PaginatedUsers {
-    data: Users[];
+    data: User[];
     current_page: number;
     last_page: number;
     per_page: number;

@@ -12,8 +12,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ content }) => {
       {/* Sidebar */}
       <Sidebar />
 
-      <div
-        className="d-flex flex-column w-100 h-100 bg-light content-area">
+      <div className="d-flex flex-column w-100 min-vh-100 bg-light content-area">
         {/* Navbar */}
         <Navbar />
 

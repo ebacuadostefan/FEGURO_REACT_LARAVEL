@@ -144,9 +144,8 @@ const LoginForm = () => {
           <div className="d-flex justify-content-end">
             <button
               type="submit"
-              className="btn btn-primary"
-              disabled={state.loadingLogin}
-            >
+              className="btn btn-primary d-flex alig-items-center"
+              disabled={state.loadingLogin}>
               {state.loadingLogin ? (
                 <>
                   <LoadingSpinner /> Logging In...

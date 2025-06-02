@@ -35,8 +35,16 @@
     margin-left: 200px;
   }
 
+  .sidebar-header {
+    justify-content: center;
+  }
+
   .sidebar {
     width: 200px;
+  }
+  
+  .App-Name {
+    display: none;
   }
 }
 
@@ -49,9 +57,14 @@
     width: 80px;
   }
 
-  .App-Name {
+  .sidebar-link-list li a {
+    justify-content: center;
+  }
+
+  .sidebar-link-list li .link-name {
     display: none;
   }
+
 }
 
 
