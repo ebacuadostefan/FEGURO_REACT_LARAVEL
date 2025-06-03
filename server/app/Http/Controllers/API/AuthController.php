@@ -33,7 +33,11 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $tokenResult = $user->createToken('auth_token');
+        $tokenResult->accessToken->expires_at = now()->addMinutes(1440);
+        $tokenResult->accessToken->save();
+
+        $token = $tokenResult->plainTextToken;
 
         return response()->json([
             'message' => 'Login Successful',

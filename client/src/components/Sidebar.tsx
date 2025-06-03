@@ -16,11 +16,11 @@ const Sidebar = () => {
   return (
     <div
       className="position-fixed top-0 left-0 bg-dark text-white p-4 z-50 sidebar">
-      <div className="sidebar-header d-flex flex-row align-items-center gap-2">
+      <a href="/dashboard" className="sidebar-header d-flex flex-row align-items-center gap-2">
         <img src={Logo} alt="Logo" style={{ width: '48px', height: '48px', clipPath: 'circle()' }} />
-        <h3 className="mb-0 App-Name">React N Laravel</h3>
-      </div>
-      <ul className="list-unstyled d-flex flex-column gap-4 mt-4 sidebar-link-list">
+        <h3 className="mb-0 App-Name text-white">React N Laravel</h3>
+      </a>
+      <ul className="list-unstyled d-flex flex-column sidebar-link-list">
         {menuItems.map((item, index) => (
           <li key={index} className="d-flex align-items-center gap-3">
             <NavLink
@@ -31,7 +31,7 @@ const Sidebar = () => {
                   ? "d-flex text-white text-decoration-none sidebar-link active"
                   : "d-flex text-white text-decoration-none sidebar-link"
               }>
-              <i className={item.icon}></i>
+              <i className={`${item.icon} fs-4`}></i>
               <span className="link-name d-md-inline">{item.title}</span>
             </NavLink>
           </li>

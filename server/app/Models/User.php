@@ -51,4 +51,24 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class, 'gender_id');
+    }
+
+    public function getGenderTypeAttribute()
+    {
+        return $this->gender?->gender;
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function getRoleTypeAttribute()
+    {
+        return $this->role?->role_type;
+    }
 }

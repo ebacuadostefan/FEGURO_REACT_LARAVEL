@@ -26,6 +26,10 @@
   height: 100vh;
 }
 
+.sidebar-link-list {
+  margin-top: 3rem;
+}
+
 .content-area {
   margin-left: 300px;
 }

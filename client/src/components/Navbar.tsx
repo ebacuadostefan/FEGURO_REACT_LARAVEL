@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
       <div className="position-relative" ref={dropdownRef}>
         <span
           onClick={() => setDropdownOpen((prev) => !prev)}
-          className="d-flex align-items-center gap-2 text-white"
+          className="d-flex align-items-center gap-2 text-black"
           style={{ cursor: "pointer" }}>
           <img src={handleUserAvatar()} alt="Avatar" style={{width: "32px", height: "32px"}}/>
           {handleUserFullname()}
