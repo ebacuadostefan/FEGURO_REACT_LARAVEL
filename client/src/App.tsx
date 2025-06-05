@@ -3,6 +3,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/auth/Login"
 import Dashboard from "./pages/dashboard/Dashboard";
 import Users from "./pages/user/Users";
+import AddUser from "./pages/user/AddUser";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
     element: (
     <ProtectedRoute>
       <Users />
+    </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/users/add",
+    element: (
+    <ProtectedRoute>
+      <AddUser />
     </ProtectedRoute>
     ),
   },

@@ -11,4 +11,7 @@ Route::controller(AuthController::class)->group( function() {
 
 Route::controller(UserController::class)->middleware(['auth:sanctum', 'check.token.expiration'])->group( function() {
     Route::get('/fetchUsers', 'fetchUsers');
+    Route::get('/fetchGenders', 'fetchGenders');
+    Route::get('/fetchRoles', 'fetchRoles');
+    Route::post('/storeUser', 'store');
 });

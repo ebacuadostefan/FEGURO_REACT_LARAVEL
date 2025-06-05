@@ -1,5 +1,5 @@
-import AxiosInstance from "../AxiosInstance";
-import { PaginatedUsers } from "../interfaces/users/PaginatedUsers";
+import AxiosInstance from "../../AxiosInstance";
+import { PaginatedUsers } from "../../interfaces/users/PaginatedUsers";
 
 const UserService = {
   loadUsers: async (
@@ -15,6 +15,15 @@ const UserService = {
       throw error;
     }
   },
+
+  storeUser: async (data: any) => {
+    return AxiosInstance.post("/storeUser", data)
+      .then((response) => response)
+      .catch((error) => {
+        throw error;
+      });
+  },
+
 };
 
 export default UserService;

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import ErrorHandler from "../../../handler/ErrorHandler";
 import { User } from "../../../interfaces/users/User";
 import { PaginatedUsers } from "../../../interfaces/users/PaginatedUsers";
-import UserService from "../../../services/userService";
+import UserService from "../../../services/users/userService";
 import Spinner from "../../Spinner";
-import { toast } from 'react-toastify';
 
 const UsersTable = () => {
   const [state, setState] = useState<{
@@ -18,6 +18,8 @@ const UsersTable = () => {
     currentPage: 1,
     lastPage: 1,
   });
+
+  const navigate = useNavigate();
 
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -63,6 +65,10 @@ const UsersTable = () => {
     if (page !== state.currentPage) {
       handleLoadUsers(page, searchTerm);
     }
+  };
+
+  const handleAddUser = () => {
+    navigate('/users/add');
   };
 
   const handleEdit = (user: User) => {
@@ -120,7 +126,7 @@ const UsersTable = () => {
         </div>
 
         <div className="col-12 col-md-6 text-md-end">
-          <button className="btn btn-primary btn-sm d-inline-flex align-items-center gap-2">
+          <button onClick={handleAddUser} className="btn btn-primary btn-sm d-inline-flex align-items-center gap-2">
             <i className="bi bi-plus-lg"></i>
             New User
           </button>
