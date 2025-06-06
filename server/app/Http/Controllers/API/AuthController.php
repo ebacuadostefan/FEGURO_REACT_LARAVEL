@@ -31,6 +31,7 @@ class AuthController extends Controller
                 'message' => 'Invalid credentials, please try again.'
             ], 401);
         }
+        
 
         $user = Auth::user();
         $tokenResult = $user->createToken('auth_token');

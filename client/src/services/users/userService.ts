@@ -1,5 +1,6 @@
 import AxiosInstance from "../../AxiosInstance";
 import { PaginatedUsers } from "../../interfaces/users/PaginatedUsers";
+import { User } from "../../interfaces/users/User";
 
 const UserService = {
   loadUsers: async (
@@ -12,16 +13,48 @@ const UserService = {
       );
       return response.data;
     } catch (error) {
+      console.error("Error loading users:", error);
       throw error;
     }
   },
 
-  storeUser: async (data: any) => {
-    return AxiosInstance.post("/storeUser", data)
-      .then((response) => response)
-      .catch((error) => {
-        throw error;
-      });
+  getUser: async (userId: number): Promise<{ user: User }> => {
+    try {
+      const response = await AxiosInstance.get(`/user/show/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching user ${userId}:`, error);
+      throw error;
+    }
+  },
+
+  storeUser: async (data: FormData) => {
+    try {
+      const response = await AxiosInstance.post("/user/store", data);
+      return response;
+    } catch (error) {
+      console.error("Error storing user:", error);
+      throw error;
+    }
+  },
+
+  updateUser: async (userId: number, data: FormData) => {
+    try {
+      const response = await AxiosInstance.post(`/user/update/${userId}`, data);
+      return response;
+    } catch (error) {
+      console.error(`Error updating user ${userId}:`, error);
+      throw error;
+    }
+  },
+
+  deleteUser: async (userId: number) => {
+    try {
+      const response = await AxiosInstance.delete(`/user/delete/${userId}`);
+      return response;
+    } catch (error) {
+      console.error(`Error updating user ${userId}:`, error);
+    }
   },
 
 };

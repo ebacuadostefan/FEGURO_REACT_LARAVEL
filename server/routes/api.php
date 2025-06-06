@@ -13,5 +13,8 @@ Route::controller(UserController::class)->middleware(['auth:sanctum', 'check.tok
     Route::get('/fetchUsers', 'fetchUsers');
     Route::get('/fetchGenders', 'fetchGenders');
     Route::get('/fetchRoles', 'fetchRoles');
-    Route::post('/storeUser', 'store');
+    Route::get('/user/show/{user_id}', 'show');
+    Route::post('/user/store', 'store');
+    Route::post('/user/update/{user_id}', 'update');
+    Route::delete('/user/delete/{user_id}', 'destroy');
 });

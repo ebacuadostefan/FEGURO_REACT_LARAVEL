@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface ToastNotificationProps {
   message: string;
@@ -13,6 +13,15 @@ const ToastNotification: React.FC<ToastNotificationProps> = ({
   onClose,
   isVisible,
 }) => {
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, onClose]);
+
   const toastTypeClasses = {
     info: 'bg-info',
     success: 'bg-success',
@@ -32,7 +41,7 @@ const ToastNotification: React.FC<ToastNotificationProps> = ({
       role="alert"
       aria-live="assertive"
       aria-atomic="true"
-      style={{ position: 'fixed', top: '20px', right: '20px', zIndex: 1050 }}>
+      style={{ position: 'fixed', top: '72px', right: '20px', zIndex: 1050 }}>
       <div className="d-flex">
         <div className="toast-body">{message}</div>
             <button

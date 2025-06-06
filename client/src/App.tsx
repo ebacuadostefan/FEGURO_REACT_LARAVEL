@@ -1,43 +1,62 @@
+// App.tsx
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Login from "./pages/auth/Login"
+import Login from "./pages/auth/Login";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Users from "./pages/user/Users";
-import AddUser from "./pages/user/AddUser";
+import UserForm from "./pages/user/UserForm";
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: 
-      <Login />
+    path: "/",
+    element: <Login />,
   },
   {
-    path: '/login',
-    element: 
-      <Login />
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "/dashboard",
-    element:(
-    <ProtectedRoute>
-      <Dashboard />
-    </ProtectedRoute>
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
     ),
   },
   {
     path: "/users",
     element: (
-    <ProtectedRoute>
-      <Users />
-    </ProtectedRoute>
+      <ProtectedRoute>
+        <Users />
+      </ProtectedRoute>
     ),
   },
   {
     path: "/users/add",
     element: (
-    <ProtectedRoute>
-      <AddUser />
-    </ProtectedRoute>
+      <ProtectedRoute>
+        <UserForm
+          setSubmitForm={undefined}
+          setLoadingStore={undefined}
+          onUserSubmitSuccess={(message) => {
+            console.log("User added successfully:", message);
+          }}
+        />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/users/edit/:user_id",
+    element: (
+      <ProtectedRoute>
+        <UserForm
+          setSubmitForm={undefined}
+          setLoadingStore={undefined}
+          onUserSubmitSuccess={(message) => {
+            console.log("User updated successfully:", message);
+          }}
+        />
+      </ProtectedRoute>
     ),
   },
 ]);
