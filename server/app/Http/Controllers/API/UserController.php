@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
@@ -60,7 +61,16 @@ class UserController extends Controller
                 'name' => 'required|string|max:255',
                 'gender' => 'required|exists:tbl_genders,id',
                 'email' => 'required|email|unique:tbl_users,email',
-                'password' => 'required|string|min:8|confirmed',
+                'password' => [
+                    'required',
+                    'string',
+                    'confirmed',
+                    Password::min(8)
+                        ->letters()
+                        ->mixedCase()
+                        ->numbers()
+                        ->symbols(),
+                ],
                 'role_type' => 'required|exists:tbl_roles,id',
             ]);
 
@@ -123,7 +133,16 @@ class UserController extends Controller
                 'name' => 'required|string|max:255',
                 'gender' => 'required|exists:tbl_genders,id',
                 'email' => 'required|email|unique:tbl_users,email,' . $user->id . ',id',
-                'password' => 'nullable|string|min:8|confirmed',
+                'password' => [
+                    'required',
+                    'string',
+                    'confirmed',
+                    Password::min(8)
+                        ->letters()
+                        ->mixedCase()
+                        ->numbers()
+                        ->symbols(),
+                ],
                 'role_type' => 'required|exists:tbl_roles,id',
             ]);
 
