@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Warehouse extends Model
+class Transaction extends Model
 {
-    //
+    protected $table = 'tbl_transactions';
 }

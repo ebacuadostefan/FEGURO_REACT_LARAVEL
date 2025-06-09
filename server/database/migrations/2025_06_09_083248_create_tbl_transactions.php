@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_stock_logs', function (Blueprint $table) {
+        Schema::create('tbl_transactions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_stock_logs');
+        Schema::dropIfExists('tbl_transactions');
     }
 };
